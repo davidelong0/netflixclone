@@ -1,27 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import MovieCard from './MovieCard';
-import { Carousel } from 'react-bootstrap';
+import { Carousel, Spinner } from 'react-bootstrap'; 
 
 const MovieGallery = ({ searchTerm }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);  
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const response = await fetch(`https://www.omdbapi.com/?apikey=4ae9e1fb&s=${searchTerm}`);
-      const data = await response.json();
-      setMovies(data.Search || []);
-      setLoading(false);
+      try {
+        setLoading(true);
+        const response = await fetch(`https://www.omdbapi.com/?apikey=4ae9e1fb&s=${searchTerm}`);
+        
+        
+        if (!response.ok) {
+          throw new Error('Errore durante il caricamento dei dati.');
+        }
+
+        const data = await response.json();
+        
+        
+        if (data.Response === 'False') {
+          throw new Error('Nessun film trovato per questa ricerca.');
+        }
+
+        setMovies(data.Search || []);
+        setLoading(false);  
+      } catch (error) {
+        setLoading(false);
+        setError(error.message);  
+      }
     };
 
     fetchMovies();
   }, [searchTerm]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  
   const chunkMovies = (movies, chunkSize) => {
     const result = [];
     for (let i = 0; i < movies.length; i += chunkSize) {
@@ -30,7 +44,24 @@ const MovieGallery = ({ searchTerm }) => {
     return result;
   };
 
-  const chunkedMovies = chunkMovies(movies, 6); 
+  const chunkedMovies = chunkMovies(movies, 6);
+
+  if (loading) {
+    return (
+      <div className="loader">
+        
+        <Spinner animation="border" variant="primary" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="error-message">
+        <p>{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className='p-2'>
