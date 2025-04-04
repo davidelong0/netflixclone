@@ -1,42 +1,93 @@
+
+html, body {
+  height: 100%;            
+  margin: 0;      
+  padding: 0;              
+  overflow-x: hidden;     
+  overflow-y: auto;        
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  min-height: 100%;     
+  width: 100%;          
+  display: flex;
+  flex-direction: column;   
+  overflow: hidden;          
+}
+
+body {
+  background-color: #221f1f;
+  color: #f5f5f1;
+  margin: 0;           
+  padding: 0;               
+}
+
+.App {
+  flex-grow: 1;        
+  display: flex;
+  flex-direction: column;    
+}
+
+.navbar {
+  z-index: 10;                
+}
+
+.icons {
+  font-size: 1.5em;
+  color: #f5f5f1;
+  cursor: pointer;
+}
+
+.icons:hover {
+  color: #ccc;
+}
+
+.movie-card img, .carousel-item img {
+  width: 100%;                
+  height: 300px;              
+  object-fit: cover;          
+}
+
+.movie-card img:hover {
+  transform: scale(1.05);      
+  transition: transform 0.2s ease-in-out; 
+}
+
+.carousel-inner {
+  width: 100%;                
+  overflow: hidden;           
+}
+
+footer {
+  background-color: #221f1f;
+  color: #f5f5f1;
+  padding: 20px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.footer-links a {
+  text-decoration: none;
+  color: white;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.footer-links a:hover {
+  text-decoration: underline;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+html, body, .App {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;        
 }
 
-.card {
-  padding: 2em;
+body {
+  min-height: 100vh;          
+  display: flex;
+  flex-direction: column;   
 }
 
-.read-the-docs {
-  color: #888;
+footer {
+  position: relative;
+  bottom: 0;               
+  width: 100%;                
 }
