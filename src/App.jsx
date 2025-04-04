@@ -64,7 +64,7 @@ const App = () => {
       {/* Gallerie */}
       <MovieGallery searchTerm="Pokèmon" />
       <MovieGallery searchTerm="One Piece" />
-      <MovieGallery searchTerm="Sonic" />
+      <MovieGallery searchTerm="Naruto" />
       
       <Footer />
     </div>
